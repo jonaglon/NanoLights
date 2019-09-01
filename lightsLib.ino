@@ -23,3 +23,19 @@ void allOff() {
     strip.setPixelColor(j, 0, 0, 0, 0);
   }
 }
+
+
+void allOn(byte r, byte g, byte b, byte w) {
+  for(int j = 0; j < strip.numPixels(); j++) {
+    strip.setPixelColor(j, r, g, b, w);
+  }
+}
+
+
+int quickAbsolute(int number) {
+  if (number < 0)
+    return number * (-1);
+  else
+    return number;
+}
+

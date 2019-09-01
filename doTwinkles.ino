@@ -3,7 +3,7 @@ int ledToLight;
 
 void doTwinkles() {
 
-  for (int twinky = 0; twinky < usedTwinkleCount[currentTwinklePattern]; twinky++) {
+  for (int twinky = 0; twinky < usedTwinkleCount[currentPattern]; twinky++) {
 
     int newLedNum = myTwinkles[twinky].ledNum;
 
@@ -50,8 +50,8 @@ void doTwinkles() {
 }
 
 void setupNewTwinklePattern(int newTwinklePattern) {
-  currentTwinklePattern = newTwinklePattern;
-  for (int twink = 0; twink < usedTwinkleCount[currentTwinklePattern]; twink++) {
+  currentPattern = newTwinklePattern;
+  for (int twink = 0; twink < usedTwinkleCount[currentPattern]; twink++) {
     switch (newTwinklePattern) {
       case 0:
         setupTwinkle0(twink);
@@ -79,7 +79,7 @@ void setupNewTwinklePattern(int newTwinklePattern) {
 }
 
 void resetTwink(int twink) {
-  switch (currentTwinklePattern) {
+  switch (currentPattern) {
     case 0:
       setupTwinkle0(twink);
       break;
