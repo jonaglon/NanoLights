@@ -3,16 +3,26 @@
 #define PIN      4
 #define N_LEDS 144
 
-int timey, cycle, animLength;
+unsigned long timey;
+int cycle, animLength;
 byte currentPattern = 1;
 
 Adafruit_NeoPixel strip = Adafruit_NeoPixel(N_LEDS, PIN, NEO_GRBW + NEO_KHZ800);
+
+// JR TODO - some stuffs to do next
+
+// Find out why twinkles are flashing, suspect overflow 32768 soemwheere in twinkle codez
+// Fades
+// Sort ouf twinkle settings so the 6 patters are killer
+// Rainbos. Man if you could find that signey rainbow that'd be killer]
+
+
 
 void setup() {
   pinMode(6, INPUT);
   digitalWrite(6, HIGH);
   cycle=0;
-  animLength=32768; 
+  animLength=16384; 
   strip.begin();
   strip.setBrightness(20);
   setupNewTwinklePattern(currentPattern);
@@ -56,7 +66,7 @@ struct twinkle {
   byte rToCol;
   byte gToCol;
   byte bToCol;
-  int start;
+  unsigned long start;
   short lengthy;
   short widthy;
   short fadeIn;
@@ -76,6 +86,7 @@ const int numTwinks = 40;
 twinkle myTwinkles[numTwinks];
 const int usedTwinkleCount[] = {40, 40, 40, 40, 40, 40, 40, 40};
 
+/*
 const uint8_t PROGMEM gamma8[] = {
     0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
     0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  1,  1,  1,  1,
@@ -92,6 +103,6 @@ const uint8_t PROGMEM gamma8[] = {
   115,117,119,120,122,124,126,127,129,131,133,135,137,138,140,142,
   144,146,148,150,152,154,156,158,160,162,164,167,169,171,173,175,
   177,180,182,184,186,189,191,193,196,198,200,203,205,208,210,213,
-  215,218,220,223,225,228,231,233,236,239,241,244,247,249,252,255 };
+  215,218,220,223,225,228,231,233,236,239,241,244,247,249,252,255 };*/
 
 

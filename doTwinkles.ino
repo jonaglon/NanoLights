@@ -134,8 +134,8 @@ void setLedsFadeIn(int ledNum, int twinky, bool rolledOver) {
     int minusFade = myTwinkles[twinky].sideFade * ledToLight;
     int offsetPlus = ledNum + ledToLight;
     int offsetMinus = ledNum - ledToLight;
-    strip.setPixelColor(offsetPlus, newRed-minusFade, newGreen-minusFade, newBlue-minusFade, 0);
-    strip.setPixelColor(offsetMinus, newRed-minusFade, newGreen-minusFade, newBlue-minusFade, 0);
+    setPixel(offsetPlus, newRed-minusFade, newGreen-minusFade, newBlue-minusFade, 0);
+    setPixel(offsetMinus, newRed-minusFade, newGreen-minusFade, newBlue-minusFade, 0);
   }
 }
 
@@ -161,8 +161,8 @@ void setLedsOnFull(int ledNum, int twinky, bool rolledOver) {
     int minusFade = myTwinkles[twinky].sideFade * ledToLight;
     int offsetPlus = ledNum + ledToLight;
     int offsetMinus = ledNum - ledToLight;
-    strip.setPixelColor(offsetPlus, newRed-minusFade, newGreen-minusFade, newBlue-minusFade, 0);
-    strip.setPixelColor(offsetMinus, newRed-minusFade, newGreen-minusFade, newBlue-minusFade, 0);
+    setPixel(offsetPlus, newRed-minusFade, newGreen-minusFade, newBlue-minusFade, 0);
+    setPixel(offsetMinus, newRed-minusFade, newGreen-minusFade, newBlue-minusFade, 0);
   }
 }
 
@@ -197,8 +197,8 @@ void setLedsFadeOut(int ledNum, int twinky, bool rolledOver) {
     int minusFade = myTwinkles[twinky].sideFade * ledToLight;
     int offsetPlus = ledNum + ledToLight;
     int offsetMinus = ledNum - ledToLight;
-    strip.setPixelColor(offsetPlus, newRed-minusFade, newGreen-minusFade, newBlue-minusFade, 0);
-    strip.setPixelColor(offsetMinus, newRed-minusFade, newGreen-minusFade, newBlue-minusFade, 0);
+    setPixel(offsetPlus, newRed-minusFade, newGreen-minusFade, newBlue-minusFade, 0);
+    setPixel(offsetMinus, newRed-minusFade, newGreen-minusFade, newBlue-minusFade, 0);
   }
 }
 
@@ -210,7 +210,6 @@ int findNewStart(int newTwinkleLength) {
 byte returnRainbowColor(int offset, int minusFade, byte wheelCol) {
   return ((wheelCol-minusFade)+offset)%255;
 }
-
 
 void setupTwinkle0(int twinky) {
   myTwinkles[twinky].ledNum = random(strip.numPixels());
@@ -279,9 +278,9 @@ void setupTwinkle3(int twinky) {
   myTwinkles[twinky].fadeIn =  random(2000, 5000);
   myTwinkles[twinky].fadeOut =  random(2000, 5000);
   myTwinkles[twinky].start = findNewStart(myTwinkles[twinky].fadeIn+myTwinkles[twinky].lengthy+myTwinkles[twinky].fadeOut); 
-  myTwinkles[twinky].widthy =  random(1, 10);
+  myTwinkles[twinky].widthy =  random(1, 5);
   myTwinkles[twinky].speedy = random(-20, 20); // larger numbers are slower!
-  myTwinkles[twinky].sideFade = 18;
+  myTwinkles[twinky].sideFade = 0;
   myTwinkles[twinky].hasTwinked = false;
 }
 
@@ -297,9 +296,9 @@ void setupTwinkle4(int twinky) {
   myTwinkles[twinky].fadeIn =  random(2000, 5000);
   myTwinkles[twinky].fadeOut =  random(2000, 5000);
   myTwinkles[twinky].start = findNewStart(myTwinkles[twinky].fadeIn+myTwinkles[twinky].lengthy+myTwinkles[twinky].fadeOut); 
-  myTwinkles[twinky].widthy =  random(3, 23);
+  myTwinkles[twinky].widthy =  random(2, 4);
   myTwinkles[twinky].speedy = 0;
-  myTwinkles[twinky].sideFade = 28;
+  myTwinkles[twinky].sideFade = 0;
   myTwinkles[twinky].hasTwinked = false;
 }
 
@@ -341,3 +340,4 @@ void setupTwinkle6(int twinky) {
   myTwinkles[twinky].hasTwinked = false;
 
 }
+

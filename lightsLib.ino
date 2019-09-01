@@ -20,14 +20,14 @@ void changeLightPattern(int newPatternNum) {
 
 void allOff() {
   for(int j = 0; j < strip.numPixels(); j++) {
-    strip.setPixelColor(j, 0, 0, 0, 0);
+    setPixel(j, 0, 0, 0, 0);
   }
 }
 
 
 void allOn(byte r, byte g, byte b, byte w) {
   for(int j = 0; j < strip.numPixels(); j++) {
-    strip.setPixelColor(j, r, g, b, w);
+    setPixel(j, r, g, b, w);
   }
 }
 
@@ -37,5 +37,19 @@ int quickAbsolute(int number) {
     return number * (-1);
   else
     return number;
+}
+
+void setPixel(byte pixNum, byte r, byte g, byte b, byte w) {
+  r = r < 0 ? 0 : r;
+  g = g < 0 ? 0 : g;
+  b = b < 0 ? 0 : b;
+  w = w < 0 ? 0 : w;
+
+  r = r > 255 ? 255 : r;
+  g = g > 255 ? 255 : g;
+  b = b > 255 ? 255 : b;
+  w = w > 255 ? 255 : w;
+
+  strip.setPixelColor(pixNum, r, g, b, w);
 }
 
