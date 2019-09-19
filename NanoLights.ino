@@ -1,15 +1,15 @@
 #include <Adafruit_NeoPixel.h>
 
 #define PIN      4
-#define N_LEDS 144
 
 unsigned long timey;
 int cycle, animLength, slowTime;
-byte currentPattern = 1;
+const int numLeds = 144;
+byte currentPattern = 5;
 
-const bool testMode = true;
+const bool testMode = false;
 
-Adafruit_NeoPixel strip = Adafruit_NeoPixel(N_LEDS, PIN, NEO_GRBW + NEO_KHZ800);
+Adafruit_NeoPixel strip = Adafruit_NeoPixel(numLeds, PIN, NEO_GRBW + NEO_KHZ800);
 
 // JR TODO - some stuffs to do next
 
@@ -26,7 +26,7 @@ void setup() {
   cycle=0;
   animLength=32768; 
   strip.begin();
-  strip.setBrightness(20);
+  strip.setBrightness(3);
   setupNewTwinklePattern(currentPattern);
   if (testMode) {
     Serial.begin(9600);
@@ -39,8 +39,10 @@ void loop() {
   checkButton();
   doLights();
   //allOn(0, 0, 0, 255);
+  //doFades();
   strip.show();
 }
+
 
 void setTimes() {
   timey = millis();
@@ -50,8 +52,8 @@ void setTimes() {
 }
 
 void doLights() {
-  //doTwinkles();
-  doKingtRiderLights();
+  doTwinkles();
+  //doKingtRiderLights();
 }
 
 bool buttonPressed = false;
@@ -112,14 +114,14 @@ const uint8_t PROGMEM gamma8[] = {
   177,180,182,184,186,189,191,193,196,198,200,203,205,208,210,213,
   215,218,220,223,225,228,231,233,236,239,241,244,247,249,252,255 };
 
-int sineWaveLUT[50] = {
+/*int sineWaveLUT[50] = {
 72,72,72,73,73,74,74,75,75,75,
 76,76,77,77,78,78,79,79,79,80,
 80,81,81,82,82,82,83,83,84,84,
 85,85,85,86,86,87,87,88,88,88,
-89,89,90,90,91,91,91,92,92,93 );
+89,89,90,90,91,91,91,92,92,93 );   */
 
-const int sineWaveLUTReal[512] = {
+const byte sineWaveLUT[512] = {
 72,72,72,73,73,74,74,75,75,75,
 76,76,77,77,78,78,79,79,79,80,
 80,81,81,82,82,82,83,83,84,84,
