@@ -5,7 +5,8 @@
 unsigned long timey;
 int cycle, animLength, slowTime;
 const int numLeds = 144;
-byte currentPattern = 5;
+byte currentPattern = 0;
+byte numPatterns = 9;
 
 const bool testMode = false;
 
@@ -13,10 +14,14 @@ Adafruit_NeoPixel strip = Adafruit_NeoPixel(numLeds, PIN, NEO_GRBW + NEO_KHZ800)
 
 // JR TODO - some stuffs to do next
 
+//  o   Fix knightrider code for 1 Led
+//  o   Make one cool kr pattern
+// do all patterns, kinght,fades,off,twinks
+// FIx the fucking twinkle colour thing
 // Find out why twinkles are flashing, suspect overflow 32768 soemwheere in twinkle codez
-// Fades
+// Fix Fades
 // Sort ouf twinkle settings so the 6 patters are killer
-// Rainbos. Man if you could find that signey rainbow that'd be killer]
+// Rainbowses. Man if you could find that signey rainbow that'd be killer.
 
 
 
@@ -26,8 +31,7 @@ void setup() {
   cycle=0;
   animLength=32768; 
   strip.begin();
-  strip.setBrightness(3);
-  setupNewTwinklePattern(currentPattern);
+  strip.setBrightness(5);
   if (testMode) {
     Serial.begin(9600);
   }
@@ -35,12 +39,8 @@ void setup() {
  
 void loop() {
   setTimes();
-  allOff();
   checkButton();
   doLights();
-  //allOn(0, 0, 0, 255);
-  //doFades();
-  strip.show();
 }
 
 
@@ -48,12 +48,23 @@ void setTimes() {
   timey = millis();
   slowTime = timey / 100;
   cycle = timey / animLength;
-
 }
 
 void doLights() {
-  doTwinkles();
-  //doKingtRiderLights();
+  allOff();
+
+  if (currentPattern == 0) {
+    for (int i = 0; i < numLeds; i++)
+      strip.setPixelColor(i, 0, 0, 0, 0);
+  } else if (currentPattern < 8) {
+    doTwinkles();
+  } else if (currentPattern < 9) {
+    doFades();
+  } else if (currentPattern < 10) {
+    doKingtRiderLights();
+  }
+  
+  strip.show();
 }
 
 bool buttonPressed = false;
@@ -61,7 +72,7 @@ void checkButton() {
   int buttonState = digitalRead(6);
   if (buttonState==0 && buttonPressed==false) {
     buttonPressed = true;
-    currentPattern=(currentPattern+1)%7;
+    currentPattern=(currentPattern+1)%(numPatterns+1);
     setupNewTwinklePattern(currentPattern);
   } else if (buttonState!=0 && buttonPressed==true) {
     buttonPressed = false;    
@@ -88,7 +99,7 @@ struct twinkle {
   twinkle(short aLedNum, byte aRCol, byte aGCol, byte aBCol, byte aToRCol, byte aToGCol, byte aToBCol, int aStart, short aLengthy, short aWidthy, short aFadeIn, short aFadeOut, short aSpeedy, short aSideFade, bool aHasTwinked) :
     ledNum(aLedNum), rCol(aRCol), gCol(aGCol), bCol(aBCol), rToCol(aToRCol), gToCol(aToGCol), bToCol(aToBCol), start(aStart), lengthy(aLengthy), widthy(aWidthy), fadeIn(aFadeIn), fadeOut(aFadeOut), speedy(aSpeedy), sideFade(aSideFade), hasTwinked(aHasTwinked) {  }
 
-  twinkle() : ledNum(0), rCol(0), gCol(0), bCol(0), start(0), lengthy(0), widthy(0), fadeIn(0), fadeOut(0), speedy(0), sideFade(0), hasTwinked(0) { }
+  twinkle() : ledNum(0), rCol(0), gCol(0), bCol(0), rToCol(0), gToCol(0), bToCol(0), start(0), lengthy(0), widthy(0), fadeIn(0), fadeOut(0), speedy(0), sideFade(0), hasTwinked(0) { }
 
 };
 
@@ -114,64 +125,25 @@ const uint8_t PROGMEM gamma8[] = {
   177,180,182,184,186,189,191,193,196,198,200,203,205,208,210,213,
   215,218,220,223,225,228,231,233,236,239,241,244,247,249,252,255 };
 
-/*int sineWaveLUT[50] = {
-72,72,72,73,73,74,74,75,75,75,
-76,76,77,77,78,78,79,79,79,80,
-80,81,81,82,82,82,83,83,84,84,
-85,85,85,86,86,87,87,88,88,88,
-89,89,90,90,91,91,91,92,92,93 );   */
-
-const byte sineWaveLUT[512] = {
-72,72,72,73,73,74,74,75,75,75,
-76,76,77,77,78,78,79,79,79,80,
-80,81,81,82,82,82,83,83,84,84,
-85,85,85,86,86,87,87,88,88,88,
-89,89,90,90,91,91,91,92,92,93,
-93,94,94,94,95,95,96,96,96,97,
-97,98,98,98,99,99,100,100,101,101,
-101,102,102,102,103,103,104,104,104,105,
-105,106,106,106,107,107,108,108,108,109,
-109,109,110,110,111,111,111,112,112,112,
-113,113,113,114,114,114,115,115,116,116,
-116,117,117,117,118,118,118,119,119,119,
-120,120,120,121,121,121,121,122,122,122,
-123,123,123,124,124,124,125,125,125,125,
-126,126,126,127,127,127,127,128,128,128,
-128,129,129,129,129,130,130,130,130,131,
-131,131,131,132,132,132,132,133,133,133,
-133,134,134,134,134,134,135,135,135,135,
-135,136,136,136,136,136,137,137,137,137,
-137,137,138,138,138,138,138,138,139,139,
-139,139,139,139,139,140,140,140,140,140,
-140,140,140,141,141,141,141,141,141,141,
-141,141,141,142,142,142,142,142,142,142,
-142,142,142,142,142,142,142,143,143,143,
-143,143,143,143,143,143,143,143,143,143,
-143,143,143,143,143,143,143,143,143,143,
-143,143,143,143,143,143,143,143,143,143,
-143,143,143,143,143,143,142,142,142,142,
-142,142,142,142,142,142,142,142,142,142,
-141,141,141,141,141,141,141,141,141,140,
-140,140,140,140,140,140,140,139,139,139,
-139,139,139,139,138,138,138,138,138,138,
-138,137,137,137,137,137,136,136,136,136,
-136,135,135,135,135,135,134,134,134,134,
-134,133,133,133,133,133,132,132,132,132,
-131,131,131,131,130,130,130,130,129,129,
-129,129,128,128,128,127,127,127,127,126,
-126,126,126,125,125,125,124,124,124,123,
-123,123,123,122,122,122,121,121,121,120,
-120,120,119,119,119,118,118,118,117,117,
-117,116,116,116,115,115,115,114,114,114,
-113,113,113,112,112,111,111,111,110,110,
-110,109,109,108,108,108,107,107,107,106,
-106,105,105,105,104,104,103,103,103,102,
-102,102,101,101,100,100,99,99,99,98,
-98,97,97,97,96,96,95,95,95,94,
-94,93,93,92,92,92,91,91,90,90,
-90,89,89,88,88,87,87,87,86,86,
-85,85,84,84,84,83,83,82,82,81,
-81,80,80,80,79,79,78,78,77,77,
-77,76,76,75,75,74,74,73,73,73,
-72, 72 };
+const byte sineWaveLUT[200] = {
+72,74,77,79,81,83,85,88,90,92,
+94,96,99,101,103,105,107,109,111,112,
+114,116,118,120,121,123,124,126,127,129,
+130,132,133,134,135,136,137,138,139,140,
+140,141,142,142,143,143,143,144,144,144,
+144,144,144,144,143,143,143,142,142,141,
+140,140,139,138,137,136,135,134,133,132,
+130,129,127,126,124,123,121,120,118,116,
+114,112,111,109,107,105,103,101,99,96,
+94,92,90,88,85,83,81,79,77,74,
+72,70,67,65,63,61,59,56,54,52,
+50,48,45,43,41,39,37,35,33,32,
+30,28,26,24,23,21,20,18,17,15,
+14,12,11,10,9,8,7,6,5,4,
+4,3,2,2,1,1,1,0,0,0,
+0,0,0,0,1,1,1,2,2,3,
+4,4,5,6,7,8,9,10,11,12,
+14,15,17,18,20,21,23,24,26,28,
+30,32,33,35,37,39,41,43,45,48,
+50,52,54,56,59,61,63,65,67,70 };
 
