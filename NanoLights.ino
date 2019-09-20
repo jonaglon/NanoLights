@@ -2,11 +2,15 @@
 
 #define PIN      4
 
-unsigned long timey;
+unsigned long timey, slowTimey;
 int cycle, animLength, slowTime;
 const int numLeds = 144;
 byte currentPattern = 0;
-byte numPatterns = 9;
+byte numPatterns = 12;
+byte wheelR;
+byte wheelG;
+byte wheelB;
+
 
 const bool testMode = false;
 
@@ -16,7 +20,7 @@ Adafruit_NeoPixel strip = Adafruit_NeoPixel(numLeds, PIN, NEO_GRBW + NEO_KHZ800)
 
 //  o   Fix knightrider code for 1 Led
 //  o   Make one cool kr pattern
-// do all patterns, kinght,fades,off,twinks
+//  o   do all patterns, kinght,fades,off,twinks
 // FIx the fucking twinkle colour thing
 // Find out why twinkles are flashing, suspect overflow 32768 soemwheere in twinkle codez
 // Fix Fades
@@ -46,7 +50,7 @@ void loop() {
 
 void setTimes() {
   timey = millis();
-  slowTime = timey / 100;
+  slowTimey = timey / 10;
   cycle = timey / animLength;
 }
 
@@ -62,6 +66,10 @@ void doLights() {
     doFades();
   } else if (currentPattern < 10) {
     doKingtRiderLights();
+  } else if (currentPattern < 11) {
+    doKingtRiderLightsRainbow1();
+  } else if (currentPattern < 12) {
+    doKingtRiderLightsRainbow2();
   }
   
   strip.show();
