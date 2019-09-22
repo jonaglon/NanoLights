@@ -38,7 +38,7 @@ int quickAbsolute(int number) {
     return number;
 }
 
-void SetRgbwWheelVars(byte WheelPos) {
+void SetRgbwWheelVars(int WheelPos) {
   WheelPos = 255 - WheelPos;
   if(WheelPos < 85) {
     wheelR = 255 - WheelPos * 3;
@@ -60,7 +60,7 @@ void SetRgbwWheelVars(byte WheelPos) {
   return;
 }
 
-void setPixel(byte pixNum, byte r, byte g, byte b, byte w) {
+void setPixel(byte pixNum, int r, int g, int b, int w) {
   r = r < 0 ? 0 : r;
   g = g < 0 ? 0 : g;
   b = b < 0 ? 0 : b;

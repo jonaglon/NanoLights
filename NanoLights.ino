@@ -1,5 +1,7 @@
 #include <Adafruit_NeoPixel.h>
 
+#include <Adafruit_NeoPixel.h>
+
 #define PIN      4
 
 unsigned long timey, slowTimey;
@@ -22,7 +24,10 @@ Adafruit_NeoPixel strip = Adafruit_NeoPixel(numLeds, PIN, NEO_GRBW + NEO_KHZ800)
 //  o   Make one cool kr pattern
 //  o   do all patterns, kinght,fades,off,twinks
 //  o   
-//  Rainbowses. Man if you could find that signey rainbow that'd be killer.
+//  Rainbowses:
+  //  Make normal adafriut rainbow work
+  // make your rainbow work
+  // Hope you really did find tht grreat one and make that owrk.
 // Fix Fades
 // FIx twinkle colour thing - why twinkles flash?, suspect overflow 32768 soemwheere in twinkle codez, long could sort?
 // Sort ouf twinkle settings so the 6 patters are killer
