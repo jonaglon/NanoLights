@@ -21,7 +21,8 @@ Adafruit_NeoPixel strip = Adafruit_NeoPixel(numLeds, PIN, NEO_GRBW + NEO_KHZ800)
 //  o   Fix knightrider code for 1 Led
 //  o   Make one cool kr pattern
 //  o   do all patterns, kinght,fades,off,twinks
-// Rainbowses. Man if you could find that signey rainbow that'd be killer.
+//  o   
+//  Rainbowses. Man if you could find that signey rainbow that'd be killer.
 // Fix Fades
 // FIx twinkle colour thing - why twinkles flash?, suspect overflow 32768 soemwheere in twinkle codez, long could sort?
 // Sort ouf twinkle settings so the 6 patters are killer
@@ -57,7 +58,7 @@ void doLights() {
   allOff();
 
   if (currentPattern < 2) {
-    doKingtRiderLightsRainbow2();
+    doRainbows2();
   } else if (currentPattern < 8) {
     doTwinkles();
   } else if (currentPattern < 9) {
@@ -69,7 +70,7 @@ void doLights() {
   } else if (currentPattern < 12) {
     doRainbows1();
   } else if (currentPattern < 13) {
-    doRainbows2();
+    doKingtRiderLightsRainbow2();
   } else if (currentPattern < 14) {
     for (int i = 0; i < numLeds; i++)
       strip.setPixelColor(i, 0, 0, 0, 0);

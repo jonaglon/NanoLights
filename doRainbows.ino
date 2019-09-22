@@ -1,15 +1,14 @@
-void doRainbows1 {
+void doRainbows1() {
+  SetRgbwWheelVars((slowTimey/100)%255);
   for (int pixNum = 0; pixNum < numLeds; pixNum++) {
-    SetRgbwWheelVars(slowTimey%255);
     setPixel(pixNum, wheelR, wheelG, wheelB, 0);
   }  
 }
 
-void doRainbows2 {
-  int addNumber = 2;
+void doRainbows2() {
   for (int pixNum = 0; pixNum < numLeds; pixNum++) {
-    SetRgbwWheelVars(slowTimey%255);
-    setPixel(pixNum, (wheelR+(pixNum*addNumber))%255, (wheelG+(pixNum*addNumber))%255, (wheelB+(pixNum*addNumber))%255, 0);
+    SetRgbwWheelVars((slowTimey/10)%255);
+    setPixel(pixNum, wheelR+pixNum, wheelG+pixNum, wheelB+pixNum, 0);
   }  
 }
 
