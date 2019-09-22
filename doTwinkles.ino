@@ -319,7 +319,10 @@ void setupTwinkle7(int twinky) {
   myTwinkles[twinky].fadeOut = random(0,800);
   myTwinkles[twinky].start = findNewStart(myTwinkles[twinky].fadeIn+myTwinkles[twinky].lengthy+myTwinkles[twinky].fadeOut); 
   myTwinkles[twinky].widthy =  1;
-  myTwinkles[twinky].speedy = random(-1,2);
+  if (random(0,2) == 0) {
+    myTwinkles[twinky].speedy = random(-3,-1);
+  } else {
+    myTwinkles[twinky].speedy = random(1,3);  }
   myTwinkles[twinky].sideFade = 0;
   myTwinkles[twinky].hasTwinked = false;
 

@@ -1,3 +1,4 @@
+
 #include <Adafruit_NeoPixel.h>
 
 #include <Adafruit_NeoPixel.h>
@@ -28,6 +29,9 @@ Adafruit_NeoPixel strip = Adafruit_NeoPixel(numLeds, PIN, NEO_GRBW + NEO_KHZ800)
 //    o Make normal adafriut rainbow work
 //    o make your rainbow work
 //  
+// fix shit pattern
+// fix when twinks all stop workking thung happens
+// use the exciting pattern matyue!
 // re tryFades using longs and see what happens
 // FIx twinkle colour thing - why twinkles flash?, suspect overflow 32768 soemwheere in twinkle codez, long could sort?
 // Revisit the rainbows, they aint working proper I dont fink
