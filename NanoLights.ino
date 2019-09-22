@@ -6,7 +6,7 @@ unsigned long timey, slowTimey;
 int cycle, animLength, slowTime;
 const int numLeds = 144;
 byte currentPattern = 0;
-byte numPatterns = 12;
+byte numPatterns = 14;
 byte wheelR;
 byte wheelG;
 byte wheelB;
@@ -21,11 +21,10 @@ Adafruit_NeoPixel strip = Adafruit_NeoPixel(numLeds, PIN, NEO_GRBW + NEO_KHZ800)
 //  o   Fix knightrider code for 1 Led
 //  o   Make one cool kr pattern
 //  o   do all patterns, kinght,fades,off,twinks
-// FIx the fucking twinkle colour thing
-// Find out why twinkles are flashing, suspect overflow 32768 soemwheere in twinkle codez
-// Fix Fades
-// Sort ouf twinkle settings so the 6 patters are killer
 // Rainbowses. Man if you could find that signey rainbow that'd be killer.
+// Fix Fades
+// FIx twinkle colour thing - why twinkles flash?, suspect overflow 32768 soemwheere in twinkle codez, long could sort?
+// Sort ouf twinkle settings so the 6 patters are killer
 
 
 
@@ -57,9 +56,8 @@ void setTimes() {
 void doLights() {
   allOff();
 
-  if (currentPattern == 0) {
-    for (int i = 0; i < numLeds; i++)
-      strip.setPixelColor(i, 0, 0, 0, 0);
+  if (currentPattern < 2) {
+    doKingtRiderLightsRainbow2();
   } else if (currentPattern < 8) {
     doTwinkles();
   } else if (currentPattern < 9) {
@@ -69,9 +67,13 @@ void doLights() {
   } else if (currentPattern < 11) {
     doKingtRiderLightsRainbow1();
   } else if (currentPattern < 12) {
-    doKingtRiderLightsRainbow2();
+    doRainbows1();
+  } else if (currentPattern < 13) {
+    doRainbows2();
+  } else if (currentPattern < 14) {
+    for (int i = 0; i < numLeds; i++)
+      strip.setPixelColor(i, 0, 0, 0, 0);
   }
-  
   strip.show();
 }
 
