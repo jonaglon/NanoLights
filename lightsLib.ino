@@ -1,8 +1,6 @@
 void changeLightPattern(int newPatternNum) {
 
-  if (newPatternNum == 0) {
-    setupNewTwinklePattern(0);
-  } else if (newPatternNum == 1) {
+  if (newPatternNum == 1) {
     setupNewTwinklePattern(1);
   } else if (newPatternNum == 2) {
     setupNewTwinklePattern(2);
@@ -14,6 +12,8 @@ void changeLightPattern(int newPatternNum) {
     setupNewTwinklePattern(5);
   } else if (newPatternNum == 6) {
     setupNewTwinklePattern(6);
+  } else if (newPatternNum == 7) {
+    setupNewTwinklePattern(7);
   }
 }
 
@@ -61,6 +61,10 @@ void SetRgbwWheelVars(int WheelPos) {
 }
 
 void setPixel(byte pixNum, int r, int g, int b, int w) {
+/*r = r % 255;
+  g = g % 255;
+  b = b % 255;    */
+
   r = r < 0 ? 0 : r;
   g = g < 0 ? 0 : g;
   b = b < 0 ? 0 : b;

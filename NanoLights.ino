@@ -24,12 +24,14 @@ Adafruit_NeoPixel strip = Adafruit_NeoPixel(numLeds, PIN, NEO_GRBW + NEO_KHZ800)
 //  o   Make one cool kr pattern
 //  o   do all patterns, kinght,fades,off,twinks
 //  o   
-//  Rainbowses:
-  //  Make normal adafriut rainbow work
-  // make your rainbow work
-  // Hope you really did find tht grreat one and make that owrk.
-// Fix Fades
+//  o Rainbowses:
+//    o Make normal adafriut rainbow work
+//    o make your rainbow work
+//  
+// re tryFades using longs and see what happens
 // FIx twinkle colour thing - why twinkles flash?, suspect overflow 32768 soemwheere in twinkle codez, long could sort?
+// Revisit the rainbows, they aint working proper I dont fink
+//****Hope you really did find tht grreat one and make that owrk.
 // Sort ouf twinkle settings so the 6 patters are killer
 
 
