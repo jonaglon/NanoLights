@@ -9,7 +9,7 @@ unsigned long timey, slowTimey;
 int cycle, animLength, slowTime;
 const int numLeds = 144;
 byte currentPattern = 0;
-byte numPatterns = 14;
+byte numPatterns = 13;
 byte wheelR;
 byte wheelG;
 byte wheelB;
@@ -68,8 +68,9 @@ void setTimes() {
 void doLights() {
   allOff();
 
-  if (currentPattern < 2) {
-    doRainbows2();
+  if (currentPattern < 1) {
+    for (int i = 0; i < numLeds; i++)
+      strip.setPixelColor(i, 0, 0, 0, 0);
   } else if (currentPattern < 8) {
     doTwinkles();
   } else if (currentPattern < 9) {
@@ -79,12 +80,11 @@ void doLights() {
   } else if (currentPattern < 11) {
     doKingtRiderLightsRainbow1();
   } else if (currentPattern < 12) {
-    doRainbows1();
-  } else if (currentPattern < 13) {
     doKingtRiderLightsRainbow2();
+  } else if (currentPattern < 13) {
+    doRainbows1();
   } else if (currentPattern < 14) {
-    for (int i = 0; i < numLeds; i++)
-      strip.setPixelColor(i, 0, 0, 0, 0);
+    doRainbows2();
   }
   strip.show();
 }
