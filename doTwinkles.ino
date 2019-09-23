@@ -106,7 +106,7 @@ void resetTwink(int twink) {
 
 void setLedsFadeIn(int ledNum, int twinky, bool rolledOver) {
 
-  int percentThroughFade = 0;
+  long percentThroughFade = 0;
   if (rolledOver) {
     percentThroughFade = (((timey + animLength) - myTwinkles[twinky].start) * 100) / myTwinkles[twinky].fadeIn;
   } else {
