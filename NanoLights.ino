@@ -10,7 +10,7 @@ byte wheelR;
 byte wheelG;
 byte wheelB;
 
-const bool testMode = false;
+const bool testMode = true;
 
 Adafruit_NeoPixel strip = Adafruit_NeoPixel(numLeds, PIN, NEO_GRBW + NEO_KHZ800);
 
@@ -20,9 +20,9 @@ Adafruit_NeoPixel strip = Adafruit_NeoPixel(numLeds, PIN, NEO_GRBW + NEO_KHZ800)
 //  o   Make one cool kr pattern
 //  o   do all patterns, kinght,fades,off,twinks
 //  o   
-//  o Rainbowses:
-//    o Make normal adafriut rainbow work
-//    o make your rainbow work
+//  Rainbowses:
+//   Investigate why rainbow looks wired
+//   See if you can find and fix the old rainbow pattern
 //  
 // fix shit pattern
 // fix when twinks all stop workking thung happens
@@ -145,4 +145,3 @@ const byte sineWaveLUT[200] = {
 14,15,17,18,20,21,23,24,26,28,
 30,32,33,35,37,39,41,43,45,48,
 50,52,54,56,59,61,63,65,67,70 };
-

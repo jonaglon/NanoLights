@@ -50,6 +50,11 @@ void doTwinkles() {
 }
 
 void setupNewTwinklePattern(int newTwinklePattern) {
+  if (testMode) {
+    Serial.print("SetupNewTwinklePattern:");
+    Serial.println(newTwinklePattern);
+  }
+  
   for (int twink = 0; twink < usedTwinkleCount[currentPattern]; twink++) {
     switch (newTwinklePattern) {
       case 1:
@@ -357,4 +362,3 @@ void setupTwinkle7(int twinky) {
   myTwinkles[twinky].hasTwinked = false;
 
 }
-
