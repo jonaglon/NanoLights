@@ -1,19 +1,14 @@
-
 #include <Adafruit_NeoPixel.h>
+#define PIN 4
 
-#include <Adafruit_NeoPixel.h>
-
-#define PIN      4
-
-unsigned long timey, slowTimey;
-int cycle, animLength, slowTime;
+unsigned long timey, slowTimey, animLength;
+int cycle;
 const int numLeds = 144;
 byte currentPattern = 0;
 byte numPatterns = 13;
 byte wheelR;
 byte wheelG;
 byte wheelB;
-
 
 const bool testMode = false;
 
@@ -44,7 +39,7 @@ void setup() {
   pinMode(6, INPUT);
   digitalWrite(6, HIGH);
   cycle=0;
-  animLength=32768; 
+  animLength=32864; // 8192; 
   strip.begin();
   strip.setBrightness(5);
   if (testMode) {
@@ -110,15 +105,15 @@ struct twinkle {
   byte gToCol;
   byte bToCol;
   int start;
-  short lengthy;
+  int lengthy;
   short widthy;
-  short fadeIn;
-  short fadeOut;
+  int fadeIn;
+  int fadeOut;
   short speedy;
   short sideFade;
   bool hasTwinked;
 
-  twinkle(short aLedNum, byte aRCol, byte aGCol, byte aBCol, byte aToRCol, byte aToGCol, byte aToBCol, int aStart, short aLengthy, short aWidthy, short aFadeIn, short aFadeOut, short aSpeedy, short aSideFade, bool aHasTwinked) :
+  twinkle(short aLedNum, byte aRCol, byte aGCol, byte aBCol, byte aToRCol, byte aToGCol, byte aToBCol, int aStart, int aLengthy, int aWidthy, int aFadeIn, int aFadeOut, short aSpeedy, short aSideFade, bool aHasTwinked) :
     ledNum(aLedNum), rCol(aRCol), gCol(aGCol), bCol(aBCol), rToCol(aToRCol), gToCol(aToGCol), bToCol(aToBCol), start(aStart), lengthy(aLengthy), widthy(aWidthy), fadeIn(aFadeIn), fadeOut(aFadeOut), speedy(aSpeedy), sideFade(aSideFade), hasTwinked(aHasTwinked) {  }
 
   twinkle() : ledNum(0), rCol(0), gCol(0), bCol(0), rToCol(0), gToCol(0), bToCol(0), start(0), lengthy(0), widthy(0), fadeIn(0), fadeOut(0), speedy(0), sideFade(0), hasTwinked(0) { }
