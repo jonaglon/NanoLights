@@ -1,7 +1,7 @@
 #include <Adafruit_NeoPixel.h>
 #define PIN 4
 
-unsigned long timey, slowTimey, animLength;
+unsigned long timey, totalTimey, slowTimey, animLength;
 int cycle;
 const int numLeds = 144;
 byte currentPattern = 0;
@@ -10,7 +10,7 @@ byte wheelR;
 byte wheelG;
 byte wheelB;
 
-const bool testMode = true;
+const bool testMode = false;
 
 Adafruit_NeoPixel strip = Adafruit_NeoPixel(numLeds, PIN, NEO_GRBW + NEO_KHZ800);
 
@@ -39,7 +39,7 @@ void setup() {
   pinMode(6, INPUT);
   digitalWrite(6, HIGH);
   cycle=0;
-  animLength=32864; // 8192; 
+  animLength=16384;   // 32864; // 8192; 
   strip.begin();
   strip.setBrightness(5);
   if (testMode) {
@@ -55,9 +55,10 @@ void loop() {
 
 
 void setTimes() {
-  timey = millis();
+  totalTimey = millis();
+  cycle = totalTimey / animLength;
+  timey = totalTimey % animLength;
   slowTimey = timey / 10;
-  cycle = timey / animLength;
 }
 
 void doLights() {
@@ -120,9 +121,9 @@ struct twinkle {
 
 };
 
-const int numTwinks = 45;
+const int numTwinks = 40;
 twinkle myTwinkles[numTwinks];
-const int usedTwinkleCount[] = {45, 45, 45, 45, 45, 45, 45, 45};
+const int usedTwinkleCount[] = {40, 40, 40, 40, 40, 40, 40, 40};
 
 const byte sineWaveLUT[200] = {
 72,74,77,79,81,83,85,88,90,92,

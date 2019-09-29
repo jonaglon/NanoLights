@@ -83,6 +83,10 @@ void setupNewTwinklePattern(int newTwinklePattern) {
 }
 
 void resetTwink(int twink) {
+  if (testMode) {
+    Serial.print("resetTwink:");
+    Serial.println(twink);
+  }
   switch (currentPattern) {
     case 1:
       setupTwinkle1(twink);
@@ -130,6 +134,27 @@ void setLedsFadeIn(int ledNum, int twinky, bool rolledOver) {
   long newGreen = ((myTwinkles[twinky].gCol + (((myTwinkles[twinky].gToCol - myTwinkles[twinky].gCol) * percentThroughPattern) / 100)) * percentThroughFade) / 100;
   long newBlue = ((myTwinkles[twinky].bCol + (((myTwinkles[twinky].bToCol - myTwinkles[twinky].bCol) * percentThroughPattern) / 100)) * percentThroughFade) / 100;
 
+  if (testMode && twinky < 2) {
+    Serial.print("In:");
+    Serial.print(twinky);
+    Serial.print("   led:");
+    Serial.print(ledNum);
+    Serial.print("   r:");
+    Serial.print(newRed);
+    Serial.print("   rolled:");
+    Serial.print(rolledOver);
+    Serial.print("   %Fade:");
+    Serial.print(percentThroughFade);
+    Serial.print("   %Calc:");
+    Serial.print(percentThroughPatternCalc);
+    Serial.print("   my[s]:");
+    Serial.print(myTwinkles[twinky].start);
+    Serial.print("   my[f]:");
+    Serial.print(myTwinkles[twinky].fadeIn);
+    Serial.print("   timey:");
+    Serial.println(timey);
+  }
+
   for (int ledToLight = 0; ledToLight < myTwinkles[twinky].widthy; ledToLight++) {
     int minusFade = myTwinkles[twinky].sideFade * ledToLight;
     int offsetPlus = ledNum + ledToLight;
@@ -152,6 +177,25 @@ void setLedsOnFull(int ledNum, int twinky, bool rolledOver) {
   long newRed = ((myTwinkles[twinky].rCol + (((myTwinkles[twinky].rToCol - myTwinkles[twinky].rCol) * percentThroughPattern) / 100)));
   long newGreen = ((myTwinkles[twinky].gCol + (((myTwinkles[twinky].gToCol - myTwinkles[twinky].gCol) * percentThroughPattern) / 100)));
   long newBlue = ((myTwinkles[twinky].bCol + (((myTwinkles[twinky].bToCol - myTwinkles[twinky].bCol) * percentThroughPattern) / 100)));
+
+  if (testMode && twinky < 2) {
+    Serial.print("Mi:");
+    Serial.print(twinky);
+    Serial.print("   led:");
+    Serial.print(ledNum);
+    Serial.print("   r:");
+    Serial.print(newRed);
+    Serial.print("   rolled:");
+    Serial.print(rolledOver);
+    Serial.print("   %Fade:");
+    Serial.print(percentThroughFade);
+    Serial.print("   my[s]:");
+    Serial.print(myTwinkles[twinky].start);
+    Serial.print("   my[f]:");
+    Serial.print(myTwinkles[twinky].fadeIn);
+    Serial.print("   timey:");
+    Serial.println(timey);
+  }
 
   for (int ledToLight = 0; ledToLight < myTwinkles[twinky].widthy; ledToLight++) {
     int minusFade = myTwinkles[twinky].sideFade * ledToLight;
@@ -184,6 +228,27 @@ void setLedsFadeOut(int ledNum, int twinky, bool rolledOver) {
   long newRed = ((myTwinkles[twinky].rCol + (((myTwinkles[twinky].rToCol - myTwinkles[twinky].rCol) * percentThroughPattern) / 100)) * percentThroughFade) / 100;
   long newGreen = ((myTwinkles[twinky].gCol + (((myTwinkles[twinky].gToCol - myTwinkles[twinky].gCol) * percentThroughPattern) / 100)) * percentThroughFade) / 100;
   long newBlue = ((myTwinkles[twinky].bCol + (((myTwinkles[twinky].bToCol - myTwinkles[twinky].bCol) * percentThroughPattern) / 100)) * percentThroughFade) / 100;
+
+  if (testMode && twinky < 2) {
+    Serial.print("Ou:");
+    Serial.print(twinky);
+    Serial.print("   led:");
+    Serial.print(ledNum);
+    Serial.print("   r:");
+    Serial.print(newRed);
+    Serial.print("   rolled:");
+    Serial.print(rolledOver);
+    Serial.print("   %Fade:");
+    Serial.print(percentThroughFade);
+    Serial.print("   %Calc:");
+    Serial.print(percentThroughPatternCalc);
+    Serial.print("   my[s]:");
+    Serial.print(myTwinkles[twinky].start);
+    Serial.print("   my[f]:");
+    Serial.print(myTwinkles[twinky].fadeIn);
+    Serial.print("   timey:");
+    Serial.println(timey);
+  }
 
   for (int ledToLight = 0; ledToLight < myTwinkles[twinky].widthy; ledToLight++) {
     int minusFade = myTwinkles[twinky].sideFade * ledToLight;
