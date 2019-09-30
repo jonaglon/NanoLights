@@ -24,6 +24,7 @@ Adafruit_NeoPixel strip = Adafruit_NeoPixel(numLeds, PIN, NEO_GRBW + NEO_KHZ800)
 //   Investigate why rainbow looks wired
 //   See if you can find and fix the old rainbow pattern
 //  
+// five then 
 // fix shit pattern
 // fix when twinks all stop workking thung happens
 // use the exciting pattern matyue!
@@ -67,8 +68,11 @@ void doLights() {
   if (currentPattern < 1) {
     for (int i = 0; i < numLeds; i++)
       strip.setPixelColor(i, 0, 0, 0, 0);
-  } else if (currentPattern < 8) {
+  } else if (currentPattern < 7) {
     doTwinkles();
+  } else if (currentPattern < 8) {
+    for (int i = 0; i < numLeds; i++)
+      strip.setPixelColor(i, 0, 0, 0, 0);
   } else if (currentPattern < 9) {
     doFades();
   } else if (currentPattern < 10) {
