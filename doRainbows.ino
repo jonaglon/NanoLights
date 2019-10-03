@@ -7,8 +7,16 @@ void doRainbows1() {
 
 void doRainbows2() {
   for (int pixNum = 0; pixNum < numLeds; pixNum++) {
-    SetRgbwWheelVars((slowTimey)%255);
-    setPixel(pixNum, wheelR+pixNum, wheelG+pixNum, wheelB+pixNum, 0);
+    SetRgbwWheelVars((vSlowTimey+pixNum)%255);
+    setPixel(pixNum, wheelR, wheelG, wheelB, 0);
+  }  
+}
+
+void doRainbows3() {
+  // int thing = vSlowTimey%4;
+  for (int pixNum = 0; pixNum < numLeds; pixNum = pixNum+2) {
+    SetRgbwWheelVars((slowTimey+pixNum)%255);
+    setPixel(pixNum, wheelR, wheelG, wheelB, 0);
   }  
 }
 

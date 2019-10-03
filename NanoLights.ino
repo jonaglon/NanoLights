@@ -1,7 +1,7 @@
 #include <Adafruit_NeoPixel.h>
 #define PIN 4
 
-unsigned long timey, totalTimey, slowTimey, animLength;
+unsigned long timey, totalTimey, slowTimey, vSlowTimey, animLength;
 int cycle;
 const int numLeds = 144;
 byte currentPattern = 0;
@@ -59,15 +59,15 @@ void setTimes() {
   totalTimey = millis();
   cycle = totalTimey / animLength;
   timey = totalTimey % animLength;
-  slowTimey = timey / 10;
+  slowTimey = totalTimey / 10;
+  vSlowTimey = totalTimey / 100;
 }
 
 void doLights() {
   allOff();
 
   if (currentPattern < 1) {
-    for (int i = 0; i < numLeds; i++)
-      strip.setPixelColor(i, 0, 0, 0, 0);
+    doRainbows3();
   } else if (currentPattern < 7) {
     doTwinkles();
   } else if (currentPattern < 8) {
