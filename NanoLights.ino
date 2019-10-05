@@ -3,13 +3,13 @@
 
 unsigned long timey, totalTimey, slowTimey, vSlowTimey, animLength;
 int cycle;
-const int numLeds = 144;
+const byte numLeds = 144;
+const byte numPatterns = 14;
 byte currentPattern = 0;
-byte numPatterns = 13;
 byte wheelR;
 byte wheelG;
 byte wheelB;
-
+bool cycling = true;
 const bool testMode = false;
 
 Adafruit_NeoPixel strip = Adafruit_NeoPixel(numLeds, PIN, NEO_GRBW + NEO_KHZ800);
@@ -31,7 +31,7 @@ Adafruit_NeoPixel strip = Adafruit_NeoPixel(numLeds, PIN, NEO_GRBW + NEO_KHZ800)
 // re tryFades using longs and see what happens
 // FIx twinkle colour thing - why twinkles flash?, suspect overflow 32768 soemwheere in twinkle codez, long could sort?
 // Revisit the rainbows, they aint working proper I dont fink
-//****Hope you really did find tht grreat one and make that owrk.
+// ****Hope you really did find tht grreat one and make that owrk.
 // Sort ouf twinkle settings so the 6 patters are killer
 
 
@@ -52,6 +52,7 @@ void loop() {
   setTimes();
   checkButton();
   doLights();
+  strip.show();
 }
 
 
@@ -60,33 +61,35 @@ void setTimes() {
   cycle = totalTimey / animLength;
   timey = totalTimey % animLength;
   slowTimey = totalTimey / 10;
-  vSlowTimey = totalTimey / 100;
+  vSlowTimey = totalTimey / 100;  
 }
+
 
 void doLights() {
   allOff();
+  // patterns 0 off, 1-6 twinkles, 7 off, 8-10 knightRider, 11-14 rainbows, 15 off.
 
   if (currentPattern < 1) {
-    doRainbows3();
+    return;
   } else if (currentPattern < 7) {
     doTwinkles();
   } else if (currentPattern < 8) {
-    for (int i = 0; i < numLeds; i++)
-      strip.setPixelColor(i, 0, 0, 0, 0);
+    return;
   } else if (currentPattern < 9) {
-    doFades();
+    doKnightRiderLights();
   } else if (currentPattern < 10) {
-    doKingtRiderLights();
+    doKnightRiderLightsRainbow();
   } else if (currentPattern < 11) {
-    doKingtRiderLightsRainbow1();
+    doKnightRiderLightsMultiRainbow();
   } else if (currentPattern < 12) {
-    doKingtRiderLightsRainbow2();
-  } else if (currentPattern < 13) {
     doRainbows1();
-  } else if (currentPattern < 14) {
+  } else if (currentPattern < 13) {
     doRainbows2();
+  } else if (currentPattern < 14) {
+    doRainbows3();
+  } else if (currentPattern < 15) {
+    doRainbows4();
   }
-  strip.show();
 }
 
 bool buttonPressed = false;

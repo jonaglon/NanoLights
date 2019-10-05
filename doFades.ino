@@ -41,11 +41,11 @@ void doCycles() {
  
 
 void doFading(int firstR, int firstG, int firstB, int secondR, int secondG, int secondB) {
-  int myTimey = timey % fadeLength;
+  long myTimey = timey % fadeLength;
 
-  int newRed = firstR + ((((secondR-firstR)*10000)/fadeLength) * myTimey)/10000;
-  int newGreen = firstG + ((((secondG-firstG)*10000)/fadeLength) * myTimey)/10000;
-  int newBlue = firstB + ((((secondB-firstB)*10000)/fadeLength) * myTimey)/10000;
+  long newRed = firstR + ((((secondR-firstR)*10000)/fadeLength) * myTimey)/10000;
+  long newGreen = firstG + ((((secondG-firstG)*10000)/fadeLength) * myTimey)/10000;
+  long newBlue = firstB + ((((secondB-firstB)*10000)/fadeLength) * myTimey)/10000;
 
   if (testMode) {
     Serial.print("    myCycle:");
@@ -77,5 +77,3 @@ void doColour(byte r, byte g, byte b, byte w) {
     setPixel(pixNum, r, g, b, w);
   }
 }
-
-

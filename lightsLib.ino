@@ -61,9 +61,6 @@ void SetRgbwWheelVars(int WheelPos) {
 }
 
 void setPixel(byte pixNum, int r, int g, int b, int w) {
-/*r = r % 255;
-  g = g % 255;
-  b = b % 255;    */
 
   r = r < 0 ? 0 : r;
   g = g < 0 ? 0 : g;
@@ -77,4 +74,3 @@ void setPixel(byte pixNum, int r, int g, int b, int w) {
 
   strip.setPixelColor(pixNum, r, g, b, w);
 }
-
