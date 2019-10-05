@@ -4,7 +4,7 @@
 unsigned long timey, totalTimey, slowTimey, vSlowTimey, animLength;
 int cycle;
 const byte numLeds = 144;
-const byte numPatterns = 14;
+const byte numPatterns = 24;
 byte currentPattern = 0;
 byte wheelR;
 byte wheelG;
@@ -13,28 +13,6 @@ bool cycling = true;
 const bool testMode = false;
 
 Adafruit_NeoPixel strip = Adafruit_NeoPixel(numLeds, PIN, NEO_GRBW + NEO_KHZ800);
-
-// JR TODO - some stuffs to do next
-
-//  o   Fix knightrider code for 1 Led
-//  o   Make one cool kr pattern
-//  o   do all patterns, kinght,fades,off,twinks
-//  o   
-//  Rainbowses:
-//   Investigate why rainbow looks wired
-//   See if you can find and fix the old rainbow pattern
-//  
-// five then 
-// fix shit pattern
-// fix when twinks all stop workking thung happens
-// use the exciting pattern matyue!
-// re tryFades using longs and see what happens
-// FIx twinkle colour thing - why twinkles flash?, suspect overflow 32768 soemwheere in twinkle codez, long could sort?
-// Revisit the rainbows, they aint working proper I dont fink
-// ****Hope you really did find tht grreat one and make that owrk.
-// Sort ouf twinkle settings so the 6 patters are killer
-
-
 
 void setup() {
   pinMode(6, INPUT);
@@ -89,6 +67,26 @@ void doLights() {
     doRainbows3();
   } else if (currentPattern < 15) {
     doRainbows4();
+  } else if (currentPattern < 16) {
+    return;
+  } else if (currentPattern < 17) {
+    doCycles();
+  } else if (currentPattern < 18) {
+    allOn(255, 0, 0, 0);
+  } else if (currentPattern < 19) {
+    allOn(0, 255, 0, 0);
+  } else if (currentPattern < 20) {
+    allOn(0, 0, 255, 0);
+  } else if (currentPattern < 21) {
+    allOn(0, 0, 0, 255);
+  } else if (currentPattern < 22) {
+    allOn(245,140,7, 50);
+  } else if (currentPattern < 23) {
+    allOn(245,7,225, 0);
+  } else if (currentPattern < 24) {
+    allOn(40, 133, 142, 50);
+  } else if (currentPattern < 25) {
+    allOn(82,104,40, 25);
   }
 }
 
@@ -118,7 +116,7 @@ struct twinkle {
   int fadeIn;
   int fadeOut;
   short speedy;
-  short sideFade;
+  short sideFade; 
   bool hasTwinked;
 
   twinkle(short aLedNum, byte aRCol, byte aGCol, byte aBCol, byte aToRCol, byte aToGCol, byte aToBCol, int aStart, int aLengthy, int aWidthy, int aFadeIn, int aFadeOut, short aSpeedy, short aSideFade, bool aHasTwinked) :
