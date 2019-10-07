@@ -4,7 +4,7 @@
 unsigned long timey, totalTimey, slowTimey, vSlowTimey, animLength;
 int cycle;
 const byte numLeds = 144;
-const byte numPatterns = 24;
+const byte numPatterns = 25;
 byte currentPattern = 0;
 byte wheelR;
 byte wheelG;
@@ -48,7 +48,7 @@ void doLights() {
   // patterns 0 off, 1-6 twinkles, 7 off, 8-10 knightRider, 11-14 rainbows, 15 off.
 
   if (currentPattern < 1) {
-    return;
+    doAllPatternsOnRotation();
   } else if (currentPattern < 7) {
     doTwinkles();
   } else if (currentPattern < 8) {
@@ -87,7 +87,76 @@ void doLights() {
     allOn(40, 133, 142, 50);
   } else if (currentPattern < 25) {
     allOn(82,104,40, 25);
+  } else {
+    return;
   }
+}
+
+byte currentPatternCycle = 0;
+void doAllPatternsOnRotation() {
+  byte patternCycle = cycle%22;
+
+  if (patternCycle != currentPatternCycle) {
+    if (patternCycle == 1) {
+      setupNewTwinklePattern(1);
+    } else if (patternCycle == 4) {
+      setupNewTwinklePattern(2);
+    } else if (patternCycle == 10) {
+      setupNewTwinklePattern(3);
+    } else if (patternCycle == 14) {
+      setupNewTwinklePattern(4);
+    } else if (patternCycle == 17) {
+      setupNewTwinklePattern(5);
+    } else if (patternCycle == 21) {
+      setupNewTwinklePattern(6);
+    }
+    currentPatternCycle = patternCycle;
+  }
+
+  if (patternCycle < 1) {
+    allOn(245,140,7, 50);
+  } else if (patternCycle < 2) {
+    doTwinkles();
+  } else if (patternCycle < 3) {
+    doRainbows1();
+  } else if (patternCycle < 4) {
+    allOn(255, 0, 0, 0);
+  } else if (patternCycle < 5) {
+    doTwinkles();
+  } else if (patternCycle < 6) {
+    doKnightRiderLightsMultiRainbow();
+  } else if (patternCycle < 7) {
+    allOn(82,104,40, 25);
+  } else if (patternCycle < 8) {
+    doRainbows2();
+  } else if (patternCycle < 9) {
+    allOn(245,7,225, 0);
+  } else if (patternCycle < 10) {
+    doRainbows4();
+  } else if (patternCycle < 11) {
+    doTwinkles();
+  } else if (patternCycle < 12) {
+    doCycles();
+  } else if (patternCycle < 13) {
+    doKnightRiderLights();
+  } else if (patternCycle < 14) {
+    allOn(50, 190, 90, 0);
+  } else if (patternCycle < 15) {
+    doTwinkles();
+  } else if (patternCycle < 16) {
+    allOn(150, 50, 50, 50);
+  } else if (patternCycle < 17) {
+    doKnightRiderLightsRainbow();
+  } else if (patternCycle < 18) {
+    doTwinkles();
+  } else if (patternCycle < 19) {
+    allOn(40, 133, 142, 50);
+  } else if (patternCycle < 20) {
+    doRainbows3();
+  } else {
+    doTwinkles();
+  }
+ 
 }
 
 bool buttonPressed = false;
@@ -96,7 +165,9 @@ void checkButton() {
   if (buttonState==0 && buttonPressed==false) {
     buttonPressed = true;
     currentPattern=(currentPattern+1)%(numPatterns+1);
-    setupNewTwinklePattern(currentPattern);
+    if (currentPattern < 7) {
+      setupNewTwinklePattern(currentPattern);
+    }
   } else if (buttonState!=0 && buttonPressed==true) {
     buttonPressed = false;    
   }
