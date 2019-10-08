@@ -17,6 +17,7 @@ Adafruit_NeoPixel strip = Adafruit_NeoPixel(numLeds, PIN, NEO_GRBW + NEO_KHZ800)
 void setup() {
   pinMode(6, INPUT);
   digitalWrite(6, HIGH);
+  randomSeed(analogRead(0));
   cycle=0;
   animLength=16384;   // 32864; // 8192; 
   strip.begin();
@@ -94,54 +95,52 @@ void doLights() {
 
 byte currentPatternCycle = 0;
 void doAllPatternsOnRotation() {
-  byte patternCycle = cycle%15;
+  byte patternCycle = cycle%14;
 
   if (patternCycle != currentPatternCycle) {
-    if (patternCycle == 1) {
+    if (patternCycle == 0) {
       setupNewTwinklePattern(1);
-    } else if (patternCycle == 4) {
+    } else if (patternCycle == 3) {
       setupNewTwinklePattern(2);
-    } else if (patternCycle == 8) {
+    } else if (patternCycle == 7) {
       setupNewTwinklePattern(3);
-    } else if (patternCycle == 10) {
+    } else if (patternCycle == 9) {
       setupNewTwinklePattern(4);
-    } else if (patternCycle == 12) {
+    } else if (patternCycle == 11) {
       setupNewTwinklePattern(5);
-    } else if (patternCycle == 14) {
+    } else if (patternCycle == 13) {
       setupNewTwinklePattern(6);
     }
     currentPatternCycle = patternCycle;
   }
 
   if (patternCycle < 1) {
-    doRainbows1();
+    doTwinkles();
   } else if (patternCycle < 2) {
-    doTwinkles();
-  } else if (patternCycle < 3) {
     doRainbows2();
-  } else if (patternCycle < 4) {
-    allOn(255, 0, 0, 0);
-  } else if (patternCycle < 5) {
-    doTwinkles();
-  } else if (patternCycle < 6) {
-    doKnightRiderLightsRainbow();
-  } else if (patternCycle < 7) {
+  } else if (patternCycle < 3) {
     doCycles();
-  } else if (patternCycle < 8) {
+  } else if (patternCycle < 4) {
+    doTwinkles();
+  } else if (patternCycle < 5) {
+    doKnightRiderLightsRainbow();
+  } else if (patternCycle < 6) {
+    doRainbows1();
+  } else if (patternCycle < 7) {
     doKnightRiderLightsMultiRainbow();
+  } else if (patternCycle < 8) {
+    doTwinkles();
   } else if (patternCycle < 9) {
-    doTwinkles();
-  } else if (patternCycle < 10) {
     doRainbows4();
+  } else if (patternCycle < 10) {
+    doTwinkles();
   } else if (patternCycle < 11) {
-    doTwinkles();
-  } else if (patternCycle < 12) {
     doKnightRiderLights();
-  } else if (patternCycle < 13) {
+  } else if (patternCycle < 12) {
     doTwinkles();
-  } else if (patternCycle < 14) {
+  } else if (patternCycle < 13) {
     doRainbows3();
-  } else if (patternCycle < 15) {
+  } else if (patternCycle < 14) {
     doTwinkles();
   }
  
