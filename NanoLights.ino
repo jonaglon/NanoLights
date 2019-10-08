@@ -93,7 +93,7 @@ void doLights() {
   }
 }
 
-byte currentPatternCycle = 0;
+byte currentPatternCycle = 1;
 void doAllPatternsOnRotation() {
   byte patternCycle = cycle%14;
 
