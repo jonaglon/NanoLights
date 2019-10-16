@@ -1,6 +1,9 @@
 #include <Adafruit_NeoPixel.h>
 #define PIN 4
 
+// TODO / ToTRY - https://learn.adafruit.com/led-tricks-gamma-correction/the-quick-fix
+// you didn't follow all the instructions properly so try this to see if it makes the colours, particularly rainbowses more betterer.
+
 unsigned long timey, totalTimey, slowTimey, vSlowTimey, animLength;
 int cycle;
 const byte numLeds = 144;
