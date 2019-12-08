@@ -15,7 +15,7 @@ byte wheelB;
 bool cycling = true;
 const bool testMode = false;
 
-Adafruit_NeoPixel strip = Adafruit_NeoPixel(numLeds, PIN, NEO_RGB + NEO_KHZ800);
+Adafruit_NeoPixel strip = Adafruit_NeoPixel(numLeds, PIN, NEO_GRB + NEO_KHZ800);
 
 void setup() {
   pinMode(6, INPUT);
