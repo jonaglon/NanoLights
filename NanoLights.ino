@@ -15,7 +15,7 @@ byte wheelB;
 bool cycling = true;
 const bool testMode = false;
 
-Adafruit_NeoPixel strip = Adafruit_NeoPixel(numLeds, PIN, NEO_GRBW + NEO_KHZ800);
+Adafruit_NeoPixel strip = Adafruit_NeoPixel(numLeds, PIN, NEO_RGB + NEO_KHZ800);
 
 void setup() {
   pinMode(6, INPUT);
@@ -24,7 +24,7 @@ void setup() {
   cycle=0;
   animLength=16384;   // 32864; // 8192; 
   strip.begin();
-  strip.setBrightness(5);
+  strip.setBrightness(30);
   if (testMode) {
     Serial.begin(9600);
   }
@@ -76,21 +76,21 @@ void doLights() {
   } else if (currentPattern < 17) {
     doCycles();
   } else if (currentPattern < 18) {
-    allOn(255, 0, 0, 0);
+    allOn(255, 0, 0);
   } else if (currentPattern < 19) {
-    allOn(0, 255, 0, 0);
+    allOn(0, 255, 0);
   } else if (currentPattern < 20) {
-    allOn(0, 0, 255, 0);
+    allOn(0, 0, 255);
   } else if (currentPattern < 21) {
-    allOn(0, 0, 0, 255);
+    allOn(90, 90, 90);
   } else if (currentPattern < 22) {
-    allOn(245,140,7, 50);
+    allOn(245,140,7);
   } else if (currentPattern < 23) {
-    allOn(245,7,225, 0);
+    allOn(245,7,225);
   } else if (currentPattern < 24) {
-    allOn(40, 133, 142, 50);
+    allOn(40, 133, 142);
   } else if (currentPattern < 25) {
-    allOn(82,104,40, 25);
+    allOn(82,104,40);
   } else {
     return;
   }

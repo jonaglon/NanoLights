@@ -1,14 +1,14 @@
 
 void allOff() {
   for(int j = 0; j < strip.numPixels(); j++) {
-    setPixel(j, 0, 0, 0, 0);
+    setPixel(j, 0, 0, 0);
   }
 }
 
 
-void allOn(byte r, byte g, byte b, byte w) {
+void allOn(byte r, byte g, byte b) {
   for(int j = 0; j < strip.numPixels(); j++) {
-    setPixel(j, r, g, b, w);
+    setPixel(j, r, g, b);
   }
 }
 
@@ -41,17 +41,15 @@ void SetRgbwWheelVars(int WheelPos) {
   return;
 }
 
-void setPixel(byte pixNum, int r, int g, int b, int w) {
+void setPixel(byte pixNum, int r, int g, int b) {
 
   r = r < 0 ? 0 : r;
   g = g < 0 ? 0 : g;
   b = b < 0 ? 0 : b;
-  w = w < 0 ? 0 : w;
 
   r = r > 255 ? 255 : r;
   g = g > 255 ? 255 : g;
   b = b > 255 ? 255 : b;
-  w = w > 255 ? 255 : w;
 
-  strip.setPixelColor(pixNum, r, g, b, w);
+  strip.setPixelColor(pixNum, r, g, b);
 }
